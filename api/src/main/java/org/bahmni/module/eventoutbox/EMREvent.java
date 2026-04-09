@@ -8,7 +8,7 @@ import org.springframework.core.ResolvableTypeProvider;
 @Getter
 public class EMREvent<T> extends ApplicationEvent implements ResolvableTypeProvider {
 
-    private final T entity;
+    private final transient T entity;
     private final String category;
     private final String title;
     private final String uri;

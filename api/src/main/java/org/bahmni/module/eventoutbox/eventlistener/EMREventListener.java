@@ -1,4 +1,4 @@
-package org.bahmni.module.eventoutbox.eventListener;
+package org.bahmni.module.eventoutbox.eventlistener;
 
 import org.bahmni.module.eventoutbox.EMREvent;
 import org.bahmni.module.eventoutbox.model.OutboxEvent;
