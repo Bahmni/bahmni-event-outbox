@@ -18,12 +18,6 @@
 			<artifactId>eventoutbox-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.openmrs.api</groupId>
-			<artifactId>openmrs-api</artifactId>
-			<version>${openmrsVersion}</version>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
