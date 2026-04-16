@@ -1,0 +1,41 @@
+name: Build and Publish Snapshot
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'corretto'
+          cache: maven
+          server-id: nexus-sonatype
+          server-username: NEXUS_USERNAME
+          server-password: NEXUS_PASSWORD
+
+      - name: Build and Deploy SNAPSHOT
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+
+          if [[ "$VERSION" == *"-SNAPSHOT" ]]; then
+            echo "Deploying SNAPSHOT version: $VERSION"
+            mvn --no-transfer-progress clean deploy
+          else
+            echo "Skipping deploy (not a SNAPSHOT)"
+          fi
+        env:
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
