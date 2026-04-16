@@ -15,14 +15,18 @@ public class EMREvent<T> extends ApplicationEvent implements ResolvableTypeProvi
     private final String content;
     private final String tags;
 
-    public EMREvent(T entity, String category, String title, String uri, String content) {
+    public EMREvent(T entity, String category, String title, String uri, String content, String tags) {
         super(entity);
         this.entity = entity;
         this.category = category;
         this.title = title;
         this.uri = uri;
         this.content = content;
-        this.tags = category;
+        this.tags = tags;
+    }
+
+    public EMREvent(T entity, String category, String title, String uri, String content) {
+        this(entity, category, title, uri, content, category);
     }
 
     @Override
